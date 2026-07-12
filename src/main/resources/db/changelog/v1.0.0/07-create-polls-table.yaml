@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: e.belousov
+      changes:
+        - createSequence:
+            sequenceName: polls_seq
+            startValue: 1000
+
+        - createTable:
+            tableName: polls
+            remarks: "Опросы в чатах"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  defaultValueSequenceNext: polls_seq
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: chat_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by_user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: question
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_multiple_choice
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - addForeignKeyConstraint:
+            baseTableName: polls
+            baseColumnNames: chat_id
+            referencedTableName: chats
+            referencedColumnNames: id
+            constraintName: fk_polls_chat
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: polls
+            baseColumnNames: created_by_user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_polls_creator
+            onDelete: RESTRICT
