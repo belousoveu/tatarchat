@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: e.belousov
+      changes:
+        - createSequence:
+            sequenceName: poll_options_seq
+            startValue: 1000
+
+        - createTable:
+            tableName: poll_options
+            remarks: "Варианты ответов в опросах"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  defaultValueSequenceNext: poll_options_seq
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: poll_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: option_text
+                  type: TEXT
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: poll_options
+            baseColumnNames: poll_id
+            referencedTableName: polls
+            referencedColumnNames: id
+            constraintName: fk_options_poll
+            onDelete: CASCADE

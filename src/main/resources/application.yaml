@@ -1,3 +1,48 @@
 spring:
   application:
     name: tatarchat
+
+  datasource:
+    url: jdbc:postgresql://localhost:5435/tatar_chat_db
+    username: tatar-chat-admin
+    password: 1
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: public
+        jdbc:
+          batch_size: 20
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+    drop-first: false
+
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: your-family-chat@gmail.com # Ваш общий ящик
+#    password: xxxx yyyy zzzz wwww        # APP PASSWORD (16 символов без пробелов)
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+#        imap:
+#          host: imap.gmail.com
+#          port: 993
+#          ssl:
+#            enable: true
