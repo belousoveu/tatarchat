@@ -29,6 +29,17 @@ spring:
     enabled: true
     drop-first: false
 
+app:
+  admin:
+    email: admin@tatarchat.local
+    password: admin123
+    display-name: Главный администратор
+  jwt:
+    secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970} # 256-bit для HS512
+    expiration: 86400000 # 24 часа в миллисекундах
+  invite:
+    code-length: 8 # Длина генерируемого инвайт-кода
+
 #  mail:
 #    host: smtp.gmail.com
 #    port: 587
