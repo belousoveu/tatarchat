@@ -48,6 +48,7 @@ public class AdminService {
             throw new TatarChatAccessDeniedException("Только администратор может генерировать инвайт-коды");
         }
 
+        //TODO Проверить почему не сохраняется в БД поле created_At
         String code = generateRandomCode();
         InviteCode inviteCode = InviteCode.builder()
                 .code(code)
@@ -135,8 +136,8 @@ public class AdminService {
             if (!request.getRole().startsWith("ROLE_")) {
                 throw new InvalidOperationException("Роль должна начинаться с 'ROLE_'");
             }
-            
-            if (userId.equals(adminId) && "ROLE_ADMIN".equals(user.getRole()) && 
+
+            if (userId.equals(adminId) && "ROLE_ADMIN".equals(user.getRole()) &&
                     !"ROLE_ADMIN".equals(request.getRole())) {
                 throw new InvalidOperationException("Нельзя снять роль администратора с самого себя");
             }
