@@ -40,6 +40,14 @@ public class Chat {
     @Column(name = "updated_at", updatable = false)
     private OffsetDateTime updatedAt;
 
+    // в классе Chat добавим:
+    @Column(name = "last_message_id")
+    private Long lastMessageId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "last_message_id", insertable = false, updatable = false)
+    private Message lastMessage;
+
     // Связь с участниками (для удобства)
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

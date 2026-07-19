@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 16
+      author: e.belousov
+      changes:
+        - createIndex:
+            indexName: idx_messages_chat_id_created_at
+            tableName: messages
+            columns:
+              - column:
+                  name: chat_id
+              - column:
+                  name: created_at
+
+        - createIndex:
+            indexName: idx_messages_sender_id
+            tableName: messages
+            columns:
+              - column:
+                  name: sender_id
+
+        - createIndex:
+            indexName: idx_messages_deleted_at
+            tableName: messages
+            columns:
+              - column:
+                  name: deleted_at
+
+        - createIndex:
+            indexName: idx_attachments_message_id
+            tableName: attachments
+            columns:
+              - column:
+                  name: message_id
+
+        - createIndex:
+            indexName: idx_reactions_message_id
+            tableName: reactions
+            columns:
+              - column:
+                  name: message_id
+
+        - createIndex:
+            indexName: idx_read_receipts_user_id
+            tableName: read_receipts
+            columns:
+              - column:
+                  name: user_id

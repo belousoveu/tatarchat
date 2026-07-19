@@ -19,3 +19,15 @@ databaseChangeLog:
       file: db/changelog/v1.0.0/09-create-poll-votes-table.yaml
   - include:
       file: db/changelog/v1.0.0/10-add-updated-at-trigger.yaml
+  - include:
+      file: db/changelog/v1.1.0/01-create-messages-table.yaml
+  - include:
+      file: db/changelog/v1.1.0/02-create-attachments-table.yaml
+  - include:
+      file: db/changelog/v1.1.0/03-create-reactions-table.yaml
+  - include:
+      file: db/changelog/v1.1.0/04-create-read-receipts-table.yaml
+  - include:
+      file: db/changelog/v1.1.0/05-alter-chats-add-last-message-id.yaml
+  - include:
+      file: db/changelog/v1.1.0/06-add-indexes.yaml
