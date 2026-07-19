@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11
+      author: e.belousov
+      changes:
+        - createSequence:
+            sequenceName: messages_seq
+            startValue: 1000
+
+        - createTable:
+            tableName: messages
+            remarks: "Сообщения в чатах"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  defaultValueSequenceNext: messages_seq
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: chat_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sender_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: text
+                  type: TEXT
+                  remarks: "Текст сообщения (может быть NULL, если только вложение)"
+              - column:
+                  name: reply_to_id
+                  type: BIGINT
+                  remarks: "ID сообщения, на которое отвечают"
+              - column:
+                  name: is_edited
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: edited_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  remarks: "Мягкое удаление (NULL = не удалено)"
+              - column:
+                  name: email_message_id
+                  type: VARCHAR(255)
+                  remarks: "Message-ID из письма (для синхронизации с почтой)"
